@@ -29,13 +29,22 @@ def load_images_from_directory(datasets_path):
 
         # Vamos ler uma imagem no formato BGR com o comando 'cv2.imread'
         img = cv2.imread(complete_path)
+        
+        # Validar a extensão das imagens
+        image_is_valid = file_name.lower().endswith(extensoes_validas)
 
+        if not image_is_valid:
+            print(f"Arquivo inválido [{file_name}]. Formatos permitidos {extensoes_validas}")
+            break
+        
         # verificar de a imagem foi carregada com sucesso, se sim entao adiciona-se a lista de imagens
-        if img is not None:
-            images[file_name] = img
-            print(f"Imagem carregada com sucesso {file_name}.")
-        else:
+        if img is None:
             print(f"Aviso: Nao foi possivel ler o ficheiro {file_name}")
+            break
+        
+        images[file_name] = img
+        #print(f"Imagem carregada com sucesso {file_name}")
+                
             
     return images
     
